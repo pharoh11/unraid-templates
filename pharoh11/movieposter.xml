@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>MoviePoster</Name>
+  <Repository>ghcr.io/pharoh11/movieposter:latest</Repository>
+  <Registry>https://github.com/pharoh11/MoviePoster/pkgs/container/movieposter</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/pharoh11/MoviePoster/issues</Support>
+  <Project>https://github.com/pharoh11/MoviePoster</Project>
+  <Overview>
+    Fullscreen Plex/Jellyfin movie poster display for a vertical TV (Raspberry Pi kiosk).
+    Pulls poster art from your Plex or Jellyfin server and shows it as a shuffle-deck
+    fullscreen slideshow with selectable transitions and a dynamic dominant-color background.
+    Interrupts to show "Now Playing" with a progress bar when a chosen player is active.
+    The Plex token / Jellyfin API key is proxied server-side and never exposed to the browser.
+    Point a Raspberry Pi (or any kiosk browser) at http://[YOUR-UNRAID-IP]:3000.
+    Open Settings by double-clicking the display, or browse to /settings directly.
+  </Overview>
+  <Category>MediaApp:Video MediaServer:Video</Category>
+  <WebUI>http://[IP]:[PORT:3000]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/pharoh11/unraid-templates/main/pharoh11/movieposter.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/pharoh11/unraid-templates/main/pharoh11/movieposter-icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <DonateText/>
+  <DonateLink/>
+  <Description>
+    Fullscreen Plex/Jellyfin poster display appliance. All state (settings, history DB,
+    optional poster cache) is stored under /config so the container restores cleanly.
+  </Description>
+  <Config
+    Name="WebUI Port"
+    Target="3000"
+    Default="3000"
+    Mode="tcp"
+    Description="HTTP port for the poster display and settings page."
+    Type="Port"
+    Display="always"
+    Required="true"
+    Mask="false">3000</Config>
+  <Config
+    Name="Config"
+    Target="/config"
+    Default="/mnt/user/appdata/movieposter"
+    Mode="rw"
+    Description="Persistent storage: settings.json, history.db, and the poster cache."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false">/mnt/user/appdata/movieposter</Config>
+  <Config
+    Name="Timezone"
+    Target="TZ"
+    Default="America/New_York"
+    Mode=""
+    Description="Container timezone (affects log timestamps and recency windows)."
+    Type="Variable"
+    Display="always"
+    Required="false"
+    Mask="false">America/New_York</Config>
+</Container>
